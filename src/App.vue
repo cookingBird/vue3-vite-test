@@ -1,29 +1,48 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { ref } from 'vue';
+import { RouterLink, RouterView } from 'vue-router';
+import { routes } from '@/router/index';
 import HelloWorld from './components/HelloWorld.vue'
+defineOptions({
+  name: 'MainApp'
+})
+const routeLink = ref(routes)
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+<header>
+  <img
+    alt="Vue logo"
+    class="logo"
+    src="@/assets/logo.svg"
+    width="125"
+    height="125"
+  />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div class="wrapper">
+    <HelloWorld msg="You did it!" />
+    <nav>
+      <template
+        v-for="item in routeLink"
+        :key="item.path"
+      >
+        <RouterLink :to="item.path">
+          {{ item.name }}
+        </RouterLink>
+      </template>
+    </nav>
+  </div>
+</header>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+<RouterView />
 </template>
 
 <style scoped>
 header {
   line-height: 1.5;
   max-height: 100vh;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 .logo {
